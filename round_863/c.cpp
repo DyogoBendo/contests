@@ -16,46 +16,20 @@ int main(){
             values.push_back(x);
         }
 
-        vector<int> answer (n);
+        vector<int> answer;
 
         int i = 0;
-        int j = 0;
-        while(i < n){
-            if(j == n - 2){
-                answer[i] = values[j];
-                i ++;
-            } else{
-                if(values[j] < values[j + 1]){                    
-                    if(i){
-                        if(answer[i - 1] <= values[j]){                            
-                            answer[i] = values[j];
-                            i ++;
-                        }  else{
-                            answer[i] = values[j];
-                            i ++;
-                            answer[i] = values[j];
-                            i++;                                      
-                        }
-                    } else{
-                        answer[i] = values[j];
-                        i ++;
-                        answer[i] = values[j];
-                        i++;                                
-                    }                    
-                } else{
-                    if(i){
-                        if(answer[i - 1] == values[j]){                            
-                            j ++;
-                            continue;                            
-                        }
-                    }
-                    answer[i] = values[j];
-                    i ++;
-                }
-                j ++;
-            }
+        int j = 0;        
 
+        answer.push_back(values[0]);
+
+        for (int i = 1; i < n - 1; i++)
+        {            
+            int m = min(values[i], values[i - 1]);            
+            answer.push_back(m);
         }
+        
+        answer.push_back(values[n - 2]);          
 
         for (int k = 0; k < n; k++)
         {

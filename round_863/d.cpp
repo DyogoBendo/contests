@@ -6,10 +6,10 @@ int fib(int n){
     int a  = 1;
     int b = 1;
     for (int i = 2; i <= n; i++)
-    {
+    {        
         int c = a;
-        int a = a + b;
-        int b = c;
+        a = a + b;        
+        b = c;
     }
 
     return a;
@@ -23,23 +23,22 @@ int main(){
         int n, x, y;
         cin >>n >> x >> y;
 
-        int x0 = 0;
-        int xf = fib(n);
-        int y0 = 0;
-        int yf = fib(n + 1);
+        int x0 = 1;
+        int xf = fib(n); // altura maxima
+        int y0 = 1;
+        int yf = fib(n + 1); // largura maxima
 
 
         int possible = 1;
-        int situation = 0;
-        while(xf - x0 && yf - x0){
+        int situation = 0; 
+        while(xf - x0 && yf - y0){
             if(situation){                
-
-                if(x > yf || x <= xf - yf){
+                if(x > x0 + (yf - y0) || x < xf - (yf - y0)){
                     situation = 0;
-                    if(x > yf){
-                        x0 = yf + 1;
+                    if(x > x0 + (yf - y0)){
+                        x0 += (yf - y0 + 1);
                     } else{
-                        xf = xf - yf;
+                        xf -= (yf - y0 + 1);
                     }
                 } else{
                     possible = 0;
@@ -47,12 +46,12 @@ int main(){
                 }
 
             } else{
-                if(y > xf || y <= yf - xf){
+                if(y > y0 + (xf - x0) || y < yf - (xf - x0)){
                     situation = 1;
-                    if(y > xf){
-                        y0 = xf + 1;
+                    if(y > y0 + (xf - x0)){
+                        y0 += (xf - x0 + 1);
                     } else{
-                        yf = yf - xf;
+                        yf -= (xf - x0 + 1);
                     }
                 } else{
                     possible = 0;
@@ -60,6 +59,9 @@ int main(){
                 }
             }
         }
+
+        if(possible) cout << "YES" << endl;
+        else cout << "NO" << endl;
         
     }
 }
